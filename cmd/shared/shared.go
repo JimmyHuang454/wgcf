@@ -1,9 +1,12 @@
 package shared
 
 import (
+	"encoding/base64"
+	"encoding/hex"
 	"fmt"
 	"log"
 	"math"
+	"strconv"
 	"strings"
 
 	"github.com/ViRb3/wgcf/cloudflare"
@@ -55,6 +58,30 @@ func F32ToHumanReadable(number float32) string {
 	return fmt.Sprintf("%.2f B", number)
 }
 
+func DecodeClientID(clientID string) string {
+	decoded, err := base64.StdEncoding.DecodeString(clientID)
+	if err != nil {
+		fmt.Println(err)
+		return "Error"
+	}
+	hexString := hex.EncodeToString(decoded)
+
+	var decValues []string
+	for i := 0; i < len(hexString); i += 2 {
+		hexByte := hexString[i : i+2]
+		decValue, _ := strconv.ParseInt(hexByte, 16, 64)
+		decValues = append(decValues, fmt.Sprintf("%d%d%d", decValue/100, (decValue/10)%10, decValue%10))
+	}
+
+	reserved := []int{}
+	for i := 0; i < len(hexString); i += 2 {
+		hexByte := hexString[i : i+2]
+		decValue, _ := strconv.ParseInt(hexByte, 16, 64)
+		reserved = append(reserved, int(decValue))
+	}
+	return strings.Trim(strings.Join(strings.Fields(fmt.Sprint(reserved)), ", "), "[]")
+}
+
 func PrintDeviceData(thisDevice *cloudflare.Device, boundDevice *cloudflare.BoundDevice) {
 	log.Println("=======================================")
 	log.Printf("%-13s : %s\n", "Device name", *boundDevice.Name)
@@ -64,6 +91,7 @@ func PrintDeviceData(thisDevice *cloudflare.Device, boundDevice *cloudflare.Boun
 	log.Printf("%-13s : %s\n", "Role", thisDevice.Account.Role)
 	log.Printf("%-13s : %s\n", "Premium data", F32ToHumanReadable(thisDevice.Account.PremiumData))
 	log.Printf("%-13s : %s\n", "Quota", F32ToHumanReadable(thisDevice.Account.Quota))
+	log.Printf("%-13s : %s\n", "Client ID", DecodeClientID(thisDevice.Config.ClientId))
 	log.Println("=======================================")
 }
 
