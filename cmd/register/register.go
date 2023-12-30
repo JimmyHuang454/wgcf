@@ -54,6 +54,7 @@ func registerAccount() error {
 		return err
 	}
 
+	viper.Set(config.PublicKey, privateKey.Public().String())
 	viper.Set(config.PrivateKey, privateKey.String())
 	viper.Set(config.DeviceId, device.Id)
 	viper.Set(config.AccessToken, device.Token)

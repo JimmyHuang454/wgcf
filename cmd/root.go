@@ -9,7 +9,8 @@ import (
 	. "github.com/ViRb3/wgcf/cmd/shared"
 	"github.com/ViRb3/wgcf/cmd/status"
 	"github.com/ViRb3/wgcf/cmd/trace"
-	"github.com/ViRb3/wgcf/cmd/update"
+	"github.com/ViRb3/wgcf/cmd/update_key"
+	"github.com/ViRb3/wgcf/cmd/update_license"
 	"github.com/ViRb3/wgcf/config"
 	"github.com/ViRb3/wgcf/util"
 
@@ -41,7 +42,8 @@ func init() {
 	cobra.OnInitialize(initConfig)
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "wgcf-account.toml", "Configuration file")
 	RootCmd.AddCommand(register.Cmd)
-	RootCmd.AddCommand(update.Cmd)
+	RootCmd.AddCommand(update_license.Cmd)
+	RootCmd.AddCommand(update_key.Cmd)
 	RootCmd.AddCommand(generate.Cmd)
 	RootCmd.AddCommand(status.Cmd)
 	RootCmd.AddCommand(trace.Cmd)

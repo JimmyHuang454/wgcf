@@ -114,6 +114,18 @@ func UpdateLicenseKey(ctx *config.Context) (*openapi.UpdateAccount200Response, e
 	return &result, nil
 }
 
+func UpdatePrivateKey(ctx *config.Context) (*openapi.UpdateSourceDevice200Response, error) {
+	result, _, err := globalClientAuth(ctx.AccessToken).DefaultApi.
+		UpdateSourceDevice(nil, ApiVersion, ctx.DeviceId).
+		UpdateSourceDeviceRequest(openapi.UpdateSourceDeviceRequest{Key: ctx.PublicKey}).
+		Execute()
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
+
 type BoundDevice openapi.GetBoundDevices200Response
 
 func GetBoundDevices(ctx *config.Context) ([]BoundDevice, error) {

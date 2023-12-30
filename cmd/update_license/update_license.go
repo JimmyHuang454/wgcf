@@ -1,4 +1,4 @@
-package update
+package update_license
 
 import (
 	"log"
@@ -16,7 +16,7 @@ var deviceName string
 var shortMsg = "Updates the current Cloudflare Warp account, preparing it for connection"
 
 var Cmd = &cobra.Command{
-	Use:   "update",
+	Use:   "update_license",
 	Short: shortMsg,
 	Long: FormatMessage(shortMsg, `
 If a new/different license key is provided, the current device will be bound to the new key and its parent account. 
