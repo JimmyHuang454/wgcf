@@ -45,7 +45,7 @@ func CreateContext() *config.Context {
 		AccessToken: viper.GetString(config.AccessToken),
 		LicenseKey:  viper.GetString(config.LicenseKey),
 		PublicKey:   viper.GetString(config.PublicKey),
-		PrivateKey:  viper.GetString(config.PrivateKey),
+		PrivateKey:  viper.GetString(config.PublicKey),
 	}
 	return &ctx
 }

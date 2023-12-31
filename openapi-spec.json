@@ -53,42 +53,7 @@
         "type": "object"
       },
       "GetBoundDevices_200_Response": {
-        "properties": {
-          "activated": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "created": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "model": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "activated",
-          "active",
-          "created",
-          "id",
-          "model",
-          "role",
-          "type"
-        ],
-        "type": "object"
+        "$ref": "#/components/schemas/GetBoundDevices_200_Response"
       },
       "GetClientConfig_200_Response": {
         "properties": {
@@ -722,42 +687,7 @@
         "type": "object"
       },
       "UpdateBoundDevice_200_Response": {
-        "properties": {
-          "activated": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "created": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "model": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "activated",
-          "active",
-          "created",
-          "id",
-          "model",
-          "role",
-          "type"
-        ],
-        "type": "object"
+        "$ref": "#/components/schemas/UpdateBoundDevice_200_Response"
       },
       "UpdateBoundDevice_Request": {
         "properties": {

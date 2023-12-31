@@ -1,16 +1,13 @@
-package update_key
+package unset_active
 
 import (
 	"log"
 
 	"github.com/ViRb3/wgcf/cloudflare"
 	. "github.com/ViRb3/wgcf/cmd/shared"
-	"github.com/ViRb3/wgcf/config"
 	"github.com/ViRb3/wgcf/util"
-	"github.com/ViRb3/wgcf/wireguard"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var deviceName string
@@ -18,12 +15,12 @@ var deviceName string
 var shortMsg = "Updates the current WireGuard key"
 
 var Cmd = &cobra.Command{
-	Use:   "update_key",
+	Use:   "unset_active",
 	Short: shortMsg,
 	Long: FormatMessage(shortMsg, `
 Update to new privateKey and publicKey of WireGuard.`),
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := UpdateWireguardKey(); err != nil {
+		if err := disableDevice(); err != nil {
 			log.Fatal(util.GetErrorMessage(err))
 		}
 	},
@@ -33,36 +30,17 @@ func init() {
 	Cmd.PersistentFlags().StringVarP(&deviceName, "name", "n", "", "Device name displayed under the 1.1.1.1 app")
 }
 
-func UpdateWireguardKey() error {
+func disableDevice() error {
 	if !IsConfigValidAccount() {
 		return errors.New("no account detected")
 	}
 
 	ctx := CreateContext()
-	boundDevices, err := cloudflare.GetBoundDevices(ctx)
-	if err != nil {
-		return err
-	}
-	log.Println(boundDevices)
-
-	privateKey, err := wireguard.NewPrivateKey()
+	_, err := cloudflare.GetSourceBoundDevice(ctx)
 	if err != nil {
 		return err
 	}
 
-	viper.Set(config.PublicKey, privateKey.Public().String())
-	viper.Set(config.PrivateKey, privateKey.String())
-	if err := viper.WriteConfig(); err != nil {
-		return err
-	}
-
-	ctx = CreateContext()
-	newDevice, err := cloudflare.UpdatePrivateKey(ctx)
-	if err != nil {
-		return err
-	}
-	log.Println(newDevice)
-
-	log.Println("Successfully updated WireGuard key")
+	_, err = cloudflare.UpdateSourceBoundDeviceActive(ctx, false)
 	return nil
 }

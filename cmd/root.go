@@ -9,6 +9,7 @@ import (
 	. "github.com/ViRb3/wgcf/cmd/shared"
 	"github.com/ViRb3/wgcf/cmd/status"
 	"github.com/ViRb3/wgcf/cmd/trace"
+	"github.com/ViRb3/wgcf/cmd/unset_active"
 	"github.com/ViRb3/wgcf/cmd/update_key"
 	"github.com/ViRb3/wgcf/cmd/update_license"
 	"github.com/ViRb3/wgcf/config"
@@ -47,6 +48,7 @@ func init() {
 	RootCmd.AddCommand(generate.Cmd)
 	RootCmd.AddCommand(status.Cmd)
 	RootCmd.AddCommand(trace.Cmd)
+	RootCmd.AddCommand(unset_active.Cmd)
 }
 
 var unsupportedConfigError viper.UnsupportedConfigError
