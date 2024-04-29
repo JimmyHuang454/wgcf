@@ -7,7 +7,7 @@ replace github.com/ViRb3/wgcf/openapi => ./openapi
 require (
 	github.com/ViRb3/optic-go v0.0.0-20240309111653-486347a8369d
 	github.com/ViRb3/sling/v2 v2.0.2
-	github.com/ViRb3/wgcf/openapi v0.0.0-20240309103509-71e9ce8d36bc
+	github.com/ViRb3/wgcf/openapi v0.0.0-20240309112324-7db4fc9fa5d9
 	github.com/manifoldco/promptui v0.9.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.8.0
